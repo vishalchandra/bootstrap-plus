@@ -9,6 +9,7 @@ $(document).ready(function(){
 
     makecompact = function(){ // Compact function should be called only once
         $(".row-fluid.compact").each(function(){
+            var tmp_per=0; //Total width percentage
             var tmp_numl=0; //No. of columns in the row
             var tmp_ml_total=0; //Sum of left margins
             var tmp_cf=0.3; //Compact Factor 0<tmp_cf<=1
@@ -25,6 +26,10 @@ $(document).ready(function(){
                 $(this).css("marginLeft",(tmp_ml*tmp_cf*tmp_norm)+"%");
                 $(this).css("width",tmp_norm*(tmp_w+(((1-tmp_cf)*tmp_ml_total)/tmp_numl))+"%");
             });
+
+            tmp_per += (tmp_ml*tmp_cf*tmp_norm) + tmp_norm*(tmp_w+(((1-tmp_cf)*tmp_ml_total)/tmp_numl));
+            if(tmp_per>100)
+                $(this).css("marginLeft",((tmp_ml*tmp_cf*tmp_norm)-tmp_per+100)+"%"); //Make sure width adds up to <= 100%
         });
     }
 
